@@ -15,12 +15,3 @@ for /f %%v in ('powershell -noprofile "(Get-Command .\bin\release\netstandard2.0
 for /f %%v in ('powershell -noprofile "(Get-Command .\bin\release\netstandard2.0\Microsoft.Recognizers.Text.Number.dll).FileVersionInfo.FileVersion"') do set number=%%v
 for /f %%v in ('powershell -noprofile "(Get-Command .\bin\release\netstandard2.0\Microsoft.Recognizers.Text.NumberWithUnit.dll).FileVersionInfo.FileVersion"') do set version=%%v
 ..\buildtools\NuGet.exe pack Microsoft.Recognizers.Text.NumberWithUnit.nuspec -symbols -properties version=%version%;basic=%basic%;number=%number% -OutputDirectory ..\nuget
-
-set error=%errorlevel%
-set packageName=Microsoft.Recognizers.Text.NumberWithUnit
-if %error% NEQ 0 (
-	echo *** Failed to build %packageName%
-	exit /b %error%
-) else (
-	echo *** Succeeded to build %packageName%
-)
